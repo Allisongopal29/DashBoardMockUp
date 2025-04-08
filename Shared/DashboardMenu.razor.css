@@ -1,0 +1,39 @@
+.sidebar {
+    background-color: #f8f9fa; /* Adjust as needed */
+    width: 250px;
+    flex-shrink: 0;
+    transition: width 0.3s ease-in-out;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+    .sidebar.collapsed {
+        width: 60px; /* Adjust collapsed width */
+    }
+
+    .sidebar .app-title {
+        padding: 1rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        border-bottom: 1px solid #dee2e6; /* Optional separator */
+    }
+
+    .sidebar.collapsed .app-title {
+        text-align: center;
+        font-size: 0.9rem; /* Adjust font size when collapsed */
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .sidebar .collapse-menu {
+        margin-top: auto;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .sidebar.collapsed .collapse-menu button span {
+        display: none;
+    }

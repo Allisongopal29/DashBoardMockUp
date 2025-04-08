@@ -1,68 +1,183 @@
-.navbar-toggler {
-    background-color: rgba(255, 255, 255, 0.1);
+/* General layout adjustments */
+.page {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* A common and clean font */
+    color: white; /* Default text color for the entire page (might be overridden) */
 }
 
+.main {
+    flex-grow: 1;
+    overflow-y: auto;
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: 220px; /* Adjust based on collapsed width */
+    background-color: #f3f6f9; /* Light grayish background */
+    color: black; /* Override for main content if needed */
+}
+
+.main-expanded {
+    margin-left: 60px; /* Adjust based on collapsed width */
+}
+
+.content {
+    padding: 1.5rem;
+    color: black; /* Override for content text if needed */
+}
+
+/* Top Row (Header) Styles */
 .top-row {
-    height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    background-color: #007bff; /* Primary blue */
+    color: #fff;
+    border-bottom: 1px solid #0056b3; /* Darker blue border */
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    gap: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-brand {
-    font-size: 1.1rem;
-}
-
-.oi {
-    width: 2rem;
-    font-size: 1.1rem;
-    vertical-align: text-top;
-    top: -2px;
-}
-
-.nav-item {
-    font-size: 0.9rem;
-    padding-bottom: 0.5rem;
-}
-
-    .nav-item:first-of-type {
-        padding-top: 1rem;
-    }
-
-    .nav-item:last-of-type {
-        padding-bottom: 1rem;
-    }
-
-    .nav-item ::deep a {
-        color: #d7d7d7;
-        border-radius: 4px;
-        height: 3rem;
+    .top-row .header {
         display: flex;
         align-items: center;
-        line-height: 3rem;
+        gap: 10px;
     }
 
-.nav-item ::deep a.active {
-    background-color: rgba(255,255,255,0.25);
-    color: white;
+        .top-row .header .k-dropdown {
+            margin-right: 10px;
+            border: 1px solid #ced4da; /* Light gray border */
+            border-radius: 4px;
+            padding: 0.2rem 0.4rem;
+            background-color: #fff;
+            color: #495057; /* Keep dropdown text dark for readability */
+        }
+
+            .top-row .header .k-dropdown .k-input {
+                font-size: 0.875rem;
+                color: #495057; /* Keep dropdown input text dark */
+            }
+
+    .top-row .user-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-left: auto;
+        color: white; /* Ensure user info text is white */
+    }
+
+        .top-row .user-info span {
+            font-weight: bold;
+        }
+
+        .top-row .user-info .k-icon {
+            font-size: 0.8rem;
+            color: #fff;
+        }
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #0047AB; /* Darker blue sidebar background */
+    width: 220px; /* Adjust width */
+    flex-shrink: 0;
+    transition: width 0.3s ease-in-out;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    color: #f0f8ff; /* Light blue/cyan text for sidebar items */
+    box-shadow: 1px 0 3px rgba(0, 0, 0, 0.1);
 }
 
-.nav-item ::deep a:hover {
-    background-color: rgba(255,255,255,0.1);
-    color: white;
-}
+    .sidebar.collapsed {
+        width: 55px; /* Adjust collapsed width */
+    }
 
-@media (min-width: 641px) {
-    .navbar-toggler {
+    .sidebar .app-title {
+        padding: 1rem;
+        font-size: 1rem;
+        font-weight: bold;
+        text-align: left;
+        border-bottom: 1px solid #2c3e50; /* Darker shade for contrast */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #f0f8ff; /* Light blue/cyan title text */
+    }
+
+    .sidebar.collapsed .app-title {
+        text-align: center;
+        font-size: 0.9rem;
+        padding: 1rem 0.5rem;
+    }
+
+    /* Telerik PanelBar in Sidebar */
+    .sidebar .k-panelbar {
+        background: transparent;
+        color: #f0f8ff; /* Default light blue/cyan text for the PanelBar */
+        border: none;
+    }
+
+        .sidebar .k-panelbar .k-item {
+            border: none;
+        }
+
+        .sidebar .k-panelbar .k-link {
+            color: #f0f8ff; /* Light blue/cyan text for the links */
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: background-color 0.15s ease-in-out;
+        }
+
+            .sidebar .k-panelbar .k-link:hover {
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+        .sidebar .k-panelbar .k-icon {
+            font-size: 1rem;
+            color: #a0ced9; /* A slightly darker cyan for icons */
+            margin-right: 8px;
+        }
+
+    /* Collapse Menu Button */
+    .sidebar .collapse-menu {
+        margin-top: auto;
+        padding: 0.75rem;
+        text-align: left;
+    }
+
+    .sidebar.collapsed .collapse-menu {
+        text-align: center;
+    }
+
+    .sidebar .collapse-menu .k-button {
+        background: transparent;
+        color: #a0ced9; /* Light blue/cyan for button text */
+        border: none;
+        padding: 0.5rem 0;
+        width: 100%;
+        border-top: 1px solid #2c3e50; /* Darker shade for contrast */
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: flex-start;
+    }
+
+    .sidebar.collapsed .collapse-menu .k-button {
+        justify-content: center;
+    }
+
+    .sidebar .collapse-menu .k-button:hover {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .sidebar .collapse-menu .k-button .k-icon {
+        font-size: 1rem;
+    }
+
+    .sidebar.collapsed .collapse-menu button span {
         display: none;
     }
-
-    .collapse {
-        /* Never collapse the sidebar for wide screens */
-        display: block;
-    }
-    
-    .nav-scrollable {
-        /* Allow sidebar to scroll for tall menus */
-        height: calc(100vh - 3.5rem);
-        overflow-y: auto;
-    }
-}

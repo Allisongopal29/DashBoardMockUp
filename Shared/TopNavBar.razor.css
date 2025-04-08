@@ -1,0 +1,171 @@
+/* General layout adjustments */
+.page {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    font-family: sans-serif; /* A more modern default font */
+}
+
+.main {
+    flex-grow: 1;
+    overflow-y: auto;
+    transition: margin-left 0.3s ease-in-out;
+    margin-left: 250px;
+    background-color: #f0f8ff; /* Light blue-ish background for content area (similar to image) */
+}
+
+.main-expanded {
+    margin-left: 60px;
+}
+
+.content {
+    padding: 1.5rem; /* Slightly more padding for content */
+}
+
+/* Top Row (Header) Styles */
+.top-row {
+    background-color: #e7f3ff; /* Light blue header background (similar to image) */
+    color: #333; /* Darker text color */
+    border-bottom: 1px solid #add8e6; /* Light blue border */
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1.25rem; /* Adjust padding */
+    gap: 15px; /* Increased spacing */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+    .top-row .header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+        .top-row .header .k-dropdown {
+            margin-right: 10px; /* Slightly more spacing */
+            border: 1px solid #87cefa; /* Light blue border for dropdowns */
+            border-radius: 4px; /* Slightly rounded corners */
+            padding: 0.25rem 0.5rem; /* Add some padding inside */
+            background-color: #f8f8ff; /* Very light gray/white for dropdown background */
+        }
+
+            .top-row .header .k-dropdown .k-input {
+                font-size: 0.9rem; /* Slightly smaller font in dropdowns */
+                color: #333;
+            }
+
+    .top-row .user-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-left: auto;
+    }
+
+        .top-row .user-info span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .top-row .user-info .k-icon {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+/* Sidebar Styles */
+.sidebar {
+    background-color: #2f4f4f; /* Dark greenish-gray background for sidebar (similar to image) */
+    width: 250px;
+    flex-shrink: 0;
+    transition: width 0.3s ease-in-out;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    color: #f0f8ff; /* Light blue/white text in sidebar */
+    box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+    .sidebar.collapsed {
+        width: 60px;
+    }
+
+    .sidebar .app-title {
+        padding: 1.25rem 1rem;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-align: left; /* Align title to the left */
+        border-bottom: 1px solid #436969; /* Slightly lighter separator */
+    }
+
+    .sidebar.collapsed .app-title {
+        text-align: center;
+        font-size: 0.8rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        padding: 1rem 0.5rem;
+    }
+
+    /* Telerik PanelBar in Sidebar */
+    .sidebar .k-panelbar {
+        background: transparent;
+        color: #f0f8ff;
+        border: none;
+    }
+
+        .sidebar .k-panelbar .k-item {
+            border: none;
+        }
+
+        .sidebar .k-panelbar .k-link {
+            color: #e0ffff; /* Light cyan for links */
+            padding: 0.75rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+            .sidebar .k-panelbar .k-link:hover {
+                background-color: rgba(255, 255, 255, 0.05);
+                color: #fff;
+            }
+
+        .sidebar .k-panelbar .k-icon {
+            font-size: 1rem;
+            color: #a0ced9; /* Light blue-ish for icons */
+            margin-right: 5px;
+        }
+
+    /* Collapse Menu Button */
+    .sidebar .collapse-menu {
+        margin-top: auto;
+        padding: 0.75rem;
+        text-align: center;
+    }
+
+        .sidebar .collapse-menu .k-button {
+            background: transparent;
+            color: #a0ced9;
+            border: none;
+            padding: 0.5rem 0;
+            width: 100%;
+            border-top: 1px solid #436969;
+            cursor: pointer;
+        }
+
+            .sidebar .collapse-menu .k-button:hover {
+                color: #fff;
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+
+            .sidebar .collapse-menu .k-button .k-icon {
+                font-size: 1rem;
+                margin-right: 5px;
+            }
+
+    .sidebar.collapsed .collapse-menu button span {
+        display: none;
+    }
+
+    .sidebar.collapsed .collapse-menu button .k-icon {
+        margin-right: 0;
+    }

@@ -7,25 +7,41 @@
     </div>
 </div>
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+<div class="@NavMenuCssClass nav-scrollable">
     <nav class="flex-column">
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All" @onclick="ToggleNavMenu">
+                <span class="oi oi-home" aria-hidden="true"></span> Dashboard
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
+            <NavLink class="nav-link" href="configuration" @onclick="ToggleNavMenu">
+                <span class="oi oi-cog" aria-hidden="true"></span> Configuration
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
+            <NavLink class="nav-link" href="systemadmin" @onclick="ToggleNavMenu">
+                <span class="oi oi-people" aria-hidden="true"></span> System Admin
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="subscribersetup" @onclick="ToggleNavMenu">
+                <i class="oi oi-person-add" aria-hidden="true"></i> <i class="oi oi-plus" aria-hidden="true"></i> Subscriber Setup
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="featurerequests" @onclick="ToggleNavMenu">
+                <span class="oi oi-lightbulb" aria-hidden="true"></span> Feature requests
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="reports" @onclick="ToggleNavMenu">
+                <span class="oi oi-bar-chart" aria-hidden="true"></span> Reports
             </NavLink>
         </div>
     </nav>
 </div>
+
 
 @code {
     private bool collapseNavMenu = true;

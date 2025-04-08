@@ -1,0 +1,51 @@
+﻿@using DashBoardMockUp.Data
+@using DashBoardMockUp.Models
+@using Telerik.Blazor.Components
+<h3>DashboardMenu</h3>
+
+@inject MockApiService ApiService
+
+<div class="sidebar @(IsCollapsed ? "collapsed" : "")">
+    <div class="app-title">DashBoardMockUp</div>
+    <TelerikPanelBar ExpandMode="PanelBarExpandMode.Single">
+        @if (MenuItems != null)
+        {
+            @foreach (var item in MenuItems)
+            {
+                <PanelBarItem Text="@item.Text" Icon="@item.Icon" Url="@item.Url">
+                    @* You can add child items here if needed *@
+                </PanelBarItem>
+            }
+        }
+        else
+        {
+            <p>Loading menu...</p>
+        }
+    </TelerikPanelBar>
+    <div class="collapse-menu">
+        <TelerikButton OnClick="@ToggleCollapse" Icon="@(IsCollapsed ? "chevron-right" : "chevron-left")">
+            @(IsCollapsed ? "Expand Menu" : "Collapse Menu")
+        </TelerikButton>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public bool IsCollapsed { get; set; }
+
+    [Parameter]
+    public EventCallback<bool> IsCollapsedChanged { get; set; }
+
+    private List<MenuItem> MenuItems;
+
+    protected override async Task OnInitializedAsync()
+    {
+        MenuItems = await ApiService.GetMenuItemsAsync();
+    }
+
+    private async Task ToggleCollapse()
+    {
+        IsCollapsed = !IsCollapsed;
+        await IsCollapsedChanged.InvokeAsync(IsCollapsed);
+    }
+}
