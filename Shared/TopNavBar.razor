@@ -1,0 +1,61 @@
+﻿@using DashBoardMockUp.Data
+@using Telerik.Blazor.Components
+<h3>TopNavBar</h3>
+
+@inject MockApiService ApiService
+
+<div class="top-row">
+    <div class="header">
+        <TelerikDropDownList Data="@countries" @bind-Value="@selectedCountry" Width="150px">
+            <DropDownListSettings>
+                <DropDownListPopupSettings Height="auto" />
+            </DropDownListSettings>
+        </TelerikDropDownList>
+        <TelerikDropDownList Data="@brands" @bind-Value="@selectedBrand" Width="150px">
+            <DropDownListSettings>
+                <DropDownListPopupSettings Height="auto" />
+            </DropDownListSettings>
+        </TelerikDropDownList>
+        <TelerikDropDownList Data="@locations" @bind-Value="@selectedLocation" Width="200px">
+            <DropDownListSettings>
+                <DropDownListPopupSettings Height="auto" />
+            </DropDownListSettings>
+        </TelerikDropDownList>
+        <div class="user-info">
+            <TelerikAvatar Value="CA" Size="Telerik.Blazor.ThemeConstants.Avatar.Size.Small"></TelerikAvatar>
+            <span>Craig Andrew</span>
+            <TelerikIcon Icon="caret-down"></TelerikIcon>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<string> countries;
+
+    public TopNavBar(List<string> countries)
+    {
+        this.countries = countries;
+    }
+
+    private string selectedCountry;
+
+    public TopNavBar(string selectedCountry)
+    {
+        this.selectedCountry = selectedCountry;
+    }
+
+    private List<string> brands;
+    private string selectedBrand;
+    private List<string> locations;
+    private string selectedLocation;
+
+    protected override async Task OnInitializedAsync()
+    {
+        countries = await ApiService.GetCountriesAsync();
+        brands = await ApiService.GetBrandsAsync();
+        locations = await ApiService.GetLocationsAsync();
+        selectedCountry = countries?.FirstOrDefault();
+        selectedBrand = brands?.FirstOrDefault();
+        selectedLocation = locations?.FirstOrDefault();
+    }
+}
