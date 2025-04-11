@@ -1,61 +1,193 @@
-﻿@using DashBoardMockUp.Data
-@using Telerik.Blazor.Components
-<h3>TopNavBar</h3>
+﻿@using Telerik.Blazor.Components
+@using System.Net.Http.Json
+@using DashBoardMockUp.Models
+@inject IHttpClientFactory HttpClientFactory
 
-@inject MockApiService ApiService
+<style>
+    .top-nav-bar {
+        background-color: #007BFF;
+        padding: 10px 20px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        border-radius: 0 0 10px 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
 
-<div class="top-row">
-    <div class="header">
-        <TelerikDropDownList Data="@countries" @bind-Value="@selectedCountry" Width="150px">
-            <DropDownListSettings>
-                <DropDownListPopupSettings Height="auto" />
-            </DropDownListSettings>
-        </TelerikDropDownList>
-        <TelerikDropDownList Data="@brands" @bind-Value="@selectedBrand" Width="150px">
-            <DropDownListSettings>
-                <DropDownListPopupSettings Height="auto" />
-            </DropDownListSettings>
-        </TelerikDropDownList>
-        <TelerikDropDownList Data="@locations" @bind-Value="@selectedLocation" Width="200px">
-            <DropDownListSettings>
-                <DropDownListPopupSettings Height="auto" />
-            </DropDownListSettings>
-        </TelerikDropDownList>
-        <div class="user-info">
-            <TelerikAvatar Value="CA" Size="Telerik.Blazor.ThemeConstants.Avatar.Size.Small"></TelerikAvatar>
-            <span>Craig Andrew</span>
-            <TelerikIcon Icon="caret-down"></TelerikIcon>
+    .top-nav-content {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 20px;
+    }
+
+    .app-name {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: white;
+        margin-right: auto;
+        padding-right: 20px;
+        white-space: nowrap;
+    }
+
+    .nav-dropdown-container {
+        display: flex;
+        justify-content: space-evenly;
+        flex: 1;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .telerik-dropdown {
+        background-color: white;
+        border-radius: 5px;
+        color: black;
+        min-width: 200px;
+        flex: 1;
+        max-width: 300px;
+    }
+
+    .error-message {
+        color: red;
+        background-color: #ffe6e6;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 4px;
+        border: 1px solid #ff9999;
+    }
+</style>
+
+<div class="top-nav-bar">
+    <div class="top-nav-content">
+        <span class="app-name">Dashboard</span>
+
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <div class="error-message">@errorMessage</div>
+        }
+
+        <div class="nav-dropdown-container">
+            <!-- Country Dropdown -->
+            <TelerikDropDownList Data="@countries"
+                                 TextField="Name"
+                                 ValueField="Id"
+                                 @bind-Value="@selectedCountryId"
+                                 DefaultText="Select Country"
+                                 Width="100%"
+                                 Class="telerik-dropdown"
+                                 OnChange="@((object args) => OnCountryChanged((string)args))">
+            </TelerikDropDownList>
+
+            <!-- Brand Dropdown -->
+            <TelerikDropDownList Data="@brands"
+                                 TextField="Name"
+                                 ValueField="Id"
+                                 @bind-Value="@selectedBrandId"
+                                 DefaultText="Select Brand"
+                                 Width="100%"
+                                 Class="telerik-dropdown"
+                                 Enabled="@isBrandDropdownEnabled">
+            </TelerikDropDownList>
+
+            <!-- Location Dropdown -->
+            <TelerikDropDownList Data="@locations"
+                                 TextField="Name"
+                                 ValueField="Id"
+                                 @bind-Value="@selectedLocationId"
+                                 DefaultText="Select Location"
+                                 Width="100%"
+                                 Class="telerik-dropdown"
+                                 Enabled="@isLocationDropdownEnabled">
+            </TelerikDropDownList>
         </div>
     </div>
 </div>
 
 @code {
-    private List<string> countries;
+    private List<Country> countries = new();
+    private List<Brand> brands = new();
+    private List<Location> locations = new();
 
-    public TopNavBar(List<string> countries)
-    {
-        this.countries = countries;
-    }
+    private string selectedCountryId;
+    private string selectedBrandId;
+    private string selectedLocationId;
+    private string errorMessage;
 
-    private string selectedCountry;
+    private bool isBrandDropdownEnabled = false;
+    private bool isLocationDropdownEnabled = false;
 
-    public TopNavBar(string selectedCountry)
-    {
-        this.selectedCountry = selectedCountry;
-    }
-
-    private List<string> brands;
-    private string selectedBrand;
-    private List<string> locations;
-    private string selectedLocation;
+    private HttpClient HttpClient => HttpClientFactory.CreateClient("API");
 
     protected override async Task OnInitializedAsync()
     {
-        countries = await ApiService.GetCountriesAsync();
-        brands = await ApiService.GetBrandsAsync();
-        locations = await ApiService.GetLocationsAsync();
-        selectedCountry = countries?.FirstOrDefault();
-        selectedBrand = brands?.FirstOrDefault();
-        selectedLocation = locations?.FirstOrDefault();
+        await LoadCountries();
+    }
+
+    private async Task LoadCountries()
+    {
+        try
+        {
+            errorMessage = null;
+            countries = await HttpClient.GetFromJsonAsync<List<Country>>("api/countries");
+            if (countries == null || countries.Count == 0)
+            {
+                errorMessage = "No countries were loaded from the API.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading countries: {ex.Message}";
+            Console.Error.WriteLine(errorMessage);
+        }
+    }
+
+    private async Task OnCountryChanged(string value)
+    {
+        try
+        {
+            errorMessage = null;
+            selectedCountryId = value;
+
+            if (!string.IsNullOrEmpty(selectedCountryId))
+            {
+                isBrandDropdownEnabled = true;
+                isLocationDropdownEnabled = true;
+                await LoadBrandsAndLocations(selectedCountryId);
+            }
+            else
+            {
+                isBrandDropdownEnabled = false;
+                isLocationDropdownEnabled = false;
+                brands.Clear();
+                locations.Clear();
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error handling country change: {ex.Message}";
+            Console.Error.WriteLine(errorMessage);
+        }
+    }
+
+    private async Task LoadBrandsAndLocations(string countryId)
+    {
+        try
+        {
+            errorMessage = null;
+            brands = await HttpClient.GetFromJsonAsync<List<Brand>>($"api/brands/{countryId}");
+            locations = await HttpClient.GetFromJsonAsync<List<Location>>($"api/locations/{countryId}");
+
+            if ((brands == null || brands.Count == 0) && (locations == null || locations.Count == 0))
+            {
+                errorMessage = $"No brands or locations found for country {countryId}";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading brands/locations: {ex.Message}";
+            Console.Error.WriteLine(errorMessage);
+        }
     }
 }

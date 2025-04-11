@@ -76,7 +76,7 @@
 
 /* Sidebar Styles */
 .sidebar {
-    background-color: #0047AB; /* Darker blue sidebar background */
+    background-color: #191970; /* Darker blue sidebar background */
     width: 220px; /* Adjust width */
     flex-shrink: 0;
     transition: width 0.3s ease-in-out;
@@ -112,7 +112,7 @@
     /* Telerik PanelBar in Sidebar */
     .sidebar .k-panelbar {
         background: transparent;
-        color: #f0f8ff; /* Default light blue/cyan text for the PanelBar */
+        color: #191970; /* Default light blue/cyan text for the PanelBar */
         border: none;
     }
 
@@ -121,7 +121,7 @@
         }
 
         .sidebar .k-panelbar .k-link {
-            color: #f0f8ff; /* Light blue/cyan text for the links */
+            color: #191970; /* Light blue/cyan text for the links */
             padding: 0.6rem 1rem;
             display: flex;
             align-items: center;

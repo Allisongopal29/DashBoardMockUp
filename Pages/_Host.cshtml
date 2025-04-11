@@ -12,7 +12,14 @@
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="DashBoardMockUp.styles.css" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="favicon.png"/>
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <!-- Add Telerik UI for Blazor CSS -->
+    <link rel="stylesheet" href="_content/Telerik.UI.for.Blazor.Trial/css/kendo-theme-default/all.css" />
+
+    <!-- Add Telerik UI for Blazor JavaScript -->
+    <script src="_content/Telerik.UI.for.Blazor.Trial/js/telerik-blazor.js"></script>
+
     <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
 </head>
 <body>
@@ -30,5 +37,18 @@
     </div>
 
     <script src="_framework/blazor.server.js"></script>
+
+    <!-- Script to automatically close Telerik license notifications -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Try to close notifications every 500ms
+            setInterval(function () {
+                const closeButtons = document.querySelectorAll('.k-notification-container .k-notification .k-i-close');
+                if (closeButtons.length > 0) {
+                    closeButtons.forEach(button => button.click());
+                }
+            }, 500);
+        });
+    </script>
 </body>
 </html>
