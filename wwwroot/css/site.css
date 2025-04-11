@@ -66,3 +66,13 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+/* Hide Telerik license notification */
+.k-notification-container {
+    display: none !important;
+}
+
+/* Hide specific license warning notifications */
+.k-notification.k-notification-info {
+    display: none !important;
+}

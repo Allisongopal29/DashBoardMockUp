@@ -9,36 +9,35 @@ main {
 }
 
 .sidebar {
-    background-color: #0047AB; /* Changed to the specified blue color */
-    width: 220px; /* Adjusted width */
+    background-color: #0047AB;
+    width: 220px;
     flex-shrink: 0;
     transition: width 0.3s ease-in-out;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
-    color: white; /* Added white text color */
+    color: white;
     box-shadow: 1px 0 3px rgba(0, 0, 0, 0.1);
 }
 
 .top-row {
-    background-color: #007bff; /* Or your header background color */
+    background-color: #007bff;
     color: #fff;
-    border-bottom: 1px solid #0056b3; /* Or your header border color */
+    border-bottom: 1px solid #0056b3;
     display: flex;
-    align-items: center; /* Vertically align items */
-    padding: 0.5rem 1rem; /* Adjust padding for less vertical space */
-    /* Remove justify-content: flex-end; */ /* We'll handle positioning differently */
-    gap: 10px; /* Space between brand and toggler */
+    align-items: center;
+    padding: 0.5rem 1rem;
+    gap: 10px;
 }
 
 .navbar-brand {
-    font-size: 1.25rem; /* Adjust the size of "DashBoardMockUp" if needed */
-    margin-right: auto; /* Push the toggler to the right */
+    font-size: 1.25rem;
+    margin-right: auto;
 }
 
 .navbar-toggler {
-    padding: 0.25rem 0.5rem; /* Reduce padding for a smaller button */
-    font-size: 0.8rem; /* Make the icon smaller */
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
     line-height: 1;
     background-color: transparent;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -51,16 +50,16 @@ main {
     vertical-align: middle;
 }
 
-    .top-row ::deep a, .top-row .btn-link {
-        white-space: nowrap;
-        margin-left: 1.5rem;
-        color: #212529; 
-    }
+.top-row ::deep a, .top-row .btn-link {
+    white-space: nowrap;
+    margin-left: 1.5rem;
+    color: #212529;
+}
 
-    .top-row a:first-child {
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+.top-row a:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 @media (max-width: 640.98px) {
     .top-row:not(.auth) {

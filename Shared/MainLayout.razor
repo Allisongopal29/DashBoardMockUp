@@ -1,18 +1,18 @@
 ﻿@inherits LayoutComponentBase
+@using Telerik.Blazor
 
-<PageTitle>DashBoardMockUp</PageTitle>
+<TelerikRootComponent>
+    <div class="page">
+        <div class="sidebar">
+            <NavMenu />
+        </div>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
+        <main>
+            <TopNavBar />
+            <article class="content px-4">
+                @Body
+            </article>
+        </main>
+
     </div>
-
-    <main>
-    
-
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+</TelerikRootComponent>
