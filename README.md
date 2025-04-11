@@ -93,4 +93,4 @@ To run the application in development mode:
 
 ## License
 
-This project uses Telerik UI for Blazor Trial License. Make sure to comply with Telerik's licensing terms.
+This project uses Telerik UI for Blazor Trial License. 
